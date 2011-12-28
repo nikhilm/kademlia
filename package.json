@@ -8,10 +8,12 @@
 	,   "email": "nsm.nikhil@gmail.com"
 	,   "url": "http://kodeclutz.blogspot.com"
     }
-,   "files": "lib"
+,   "files": ["lib"]
 ,   "repository": { "type": "git", "url": "http://github.com/nikhilm/kademlia.git" }
 ,   "dependencies": {
-	,   "underscore": ">1.1.0"
+	    "underscore": ">1.1.0"
+	,   "zmq": ">=2.0.0"
+	,   "hat": ">=0.0.3"
 	}
 ,   "devDependencies": {
 	    "vows": ">0.5"
