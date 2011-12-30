@@ -1,3 +1,4 @@
+var util = require('./lib/util');
 var knode = require('./lib/knode');
 
 var self = process.argv[2].split(':');
