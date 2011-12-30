@@ -17,6 +17,7 @@
 	}
 ,   "devDependencies": {
 	    "vows": ">0.5"
+    ,   "Faker": ">=0.1.0"
 	}
 ,   "engines": { "node": ">= 0.4" }
 }

@@ -1,6 +1,8 @@
 var vows = require('vows')
   , assert = require('assert');
 
+var Faker = require('Faker');
+
 var constants = require('../lib/constants');
 var util = require('../lib/util');
 
@@ -10,12 +12,12 @@ vows.describe('Utilities').addBatch({
     'The ID function': {
         topic: function() { return util.id },
 
-        'returns a buffer': function(topic) {
-            assert.ok(Buffer.isBuffer(topic('test')));
+        'returns a string': function(topic) {
+            assert.isString(topic('test'));
         },
-        'returns a buffer of length constants.k': function(topic) {
+        'returns a string of length constants.K*2': function(topic) {
             for( var i = 0; i < 100; ++i ) {
-                assert.equal( topic(''+Math.random()).length, constants.k);
+                assert.equal(topic(''+Math.random()).length, constants.K*2);
             }
         }
     },
@@ -95,18 +97,38 @@ vows.describe('Utilities').addBatch({
         'works': function(topic) {
             assert.deepEqual(
                 util.distance(
-                    h2b('ffbfba8945192d408d3dcc52ba24903a00000000'),
-                    h2b('ffbfba8945192d408d3dcc52ba24903a00000001')
+                    'ffbfba8945192d408d3dcc52ba24903a00000000',
+                    'ffbfba8945192d408d3dcc52ba24903a00000001'
                 ),
                 h2b('0000000000000000000000000000000000000001')
             );
             assert.deepEqual(
                 util.distance(
-                    h2b('ffcfba8945192d408d3dcc52ba24903a00000000'),
-                    h2b('ffbfba8945192d408d3dcc52ba24903a00000001')
+                    'ffcfba8945192d408d3dcc52ba24903a00000000',
+                    'ffbfba8945192d408d3dcc52ba24903a00000001'
                 ),
                 h2b('0070000000000000000000000000000000000001')
             );
+        }
+    },
+
+    'The bucketIndex function': {
+        topic: function() { return util.bucketIndex; },
+        'works': function(topic) {
+            assert.equal(topic('ffbfba8945192d408d3dcc52ba24903a00000000',
+                               'ffbfba8945192d408d3dcc52ba24903a00000001'), 0);
+            assert.equal(topic('ffcfba8945192d408d3dcc52ba24903a00000000',
+                               'ffbfba8945192d408d3dcc52ba24903a00000001'), 150);
+            assert.equal(topic(util.id('nikhil'),
+                               util.id('kademlia')), 159);
+        },
+
+        'does not collide (usually)': function(topic) {
+            for (var i = 1; i <= 10000; i++) {
+                var id1 = util.id(Faker.Lorem.sentence());
+                var id2 = util.id(Faker.Lorem.sentence());
+                assert.notEqual(topic(id1, id2), constants.B);
+            }
         }
     }
 }).export(module);
