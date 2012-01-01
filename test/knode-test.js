@@ -16,7 +16,7 @@ vows.describe('KNode').addBatch({
         topic: function() {
             var node = new knode.KNode({ address: '127.0.0.1', port: 65535 });
             var self = this;
-            node._socket = {
+            node._rpc = {
                 send: function(contact, message) {
                     self.callback(null /*error object*/, {node: node, contact: contact, message: message});
                 }
