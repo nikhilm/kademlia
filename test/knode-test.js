@@ -10,12 +10,19 @@ var util = require('../lib/util');
 var knode = require('../lib/knode');
 
 vows.describe('KNode').addBatch({
+    'On KNode creation': {
+        topic: new knode.KNode({ address: '127.0.0.1', port: 65535 }),
+        'KNode._self should be frozen': function(topic) {
+            assert.throws(function() { topic._self.prop = "invalid"; }, TypeError);
+        }
+    },
+
     'The KNode ping operation': {
     },
 
     'The KNode store operation': {
         topic: function() {
-            var node = new knode.KNode({ address: '127.0.0.1', port: 65535 });
+            var node = new knode.KNode({ address: '127.0.0.1', port: 65534 });
             var self = this;
             node._rpc = {
                 send: function(contact, message) {
