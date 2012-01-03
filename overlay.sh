@@ -1,17 +1,22 @@
 #!/bin/bash
 
-ip='10.100.98.39'
-startPort=10000
+function xt() {
+    echo xterm -geometry 100x32 -T "$1" -e node run.js $2:$3 &
+    xterm -geometry 100x32 -T "$1" -e node run.js $2:$3 &
+}
+
+ip='10.100.98.60'
+port=10000
 n=$1
 
-title="$ip:$startPort"
-xterm -T $title -e node run.js $ip:$startPort &
+id=`node -e "console.log(require('./lib/util').nodeID('$ip', $port))"`
+xt "$id $ip:$port" $ip $port
 
-prev=$startPort
+prev=$port
 for ((i=1; i<n;i++))
 do
-	port=$((startPort + RANDOM))
-	title="$ip:$port"
-    xterm -T $title -e node run.js $ip:$port $ip:$prev &
+    port=$((prev + RANDOM))
+    id=`node -e "console.log(require('./lib/util').nodeID('$ip', $port))"`
+    xt "$id $ip:$port" $ip $port
     prev=$port
 done
