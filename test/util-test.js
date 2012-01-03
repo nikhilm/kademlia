@@ -1,3 +1,4 @@
+"use strict";
 var vows = require('vows')
   , assert = require('assert');
 
@@ -6,7 +7,7 @@ var Faker = require('Faker');
 var constants = require('../lib/constants');
 var util = require('../lib/util');
 
-h2b = util.hex2buf;
+var h2b = util.hex2buf;
 
 vows.describe('Utilities').addBatch({
     'The ID function': {
