@@ -9,11 +9,10 @@ n=$1
 id=`node -e "console.log(require('./lib/util').nodeID('$ip', $port))"`
 xt "$id $ip:$port" $ip $port
 
-prev=$port
+orig=$port
 for ((i=1; i<n;i++))
 do
     port=$((prev + RANDOM))
     id=`node -e "console.log(require('./lib/util').nodeID('$ip', $port))"`
-    xt "$id $ip:$port" $ip $port $ip $prev
-    prev=$port
+    xt "$id $ip:$port" $ip $port $ip $orig
 done
