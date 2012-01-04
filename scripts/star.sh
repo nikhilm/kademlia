@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. common.sh
+. scripts/common.sh
 
 ip='10.100.98.60'
 port=10000
