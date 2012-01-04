@@ -64,6 +64,12 @@ guaranteed to succeed. `callback` can be used to check the result of the store.
 It is `function (err)`. If the store succeeded, `err` is `null`, otherwise
 `err` describes what went wrong.
 
+    node.set('foo', 'bar', function(err) {
+        if (err) {
+            // might want to try again
+        }
+    });
+
 #### self
 
 An object describing this node.
