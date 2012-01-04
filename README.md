@@ -35,11 +35,44 @@ properties. The node will bind to `port` and start running.
 
 #### connect(address, port)
 
+Used to introduce this Kademlia node to the overlay network. If you know the
+address and port of an existing Kademlia peer, you may `connect` to it so that
+this node can become part of the network.
+
+    node.connect('10.100.98.12', 42922);
+
 #### get(key, callback)
+
+Gets the value associated with `key` from the Kademlia network. `callback` is
+a function with arguments `(err, value)`. If the value is found, `err` is
+`null`, otherwise `err` will be an object containing information about what
+went wrong and `value` will be `null`.
+
+    node.get('foo', function(err, value) {
+        if (err) {
+            // something went wrong
+            return;
+        }
+
+        // use value
+    });
 
 #### set(key, value[, callback])
 
+Store the `key`, `value` pair in the Kademlia network. `set()` is not
+guaranteed to succeed. `callback` can be used to check the result of the store.
+It is `function (err)`. If the store succeeded, `err` is `null`, otherwise
+`err` describes what went wrong.
+
 #### self
+
+An object describing this node.
+
+    {
+        nodeID: 'SHA1 hash, unique ID of the node',
+        address: 'IP address the node is on',
+        port: port number (integer) the node is bound to
+    }
 
 Contributors
 ------------
