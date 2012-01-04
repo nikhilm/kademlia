@@ -7,8 +7,9 @@ var node = new knode.KNode({ address: self[0], port: port });
 
 if (process.argv.length >= 4) {
     var arg = process.argv[3].split(':');
-    // keep pinging the guy
-    setInterval(function() {
-        node.ping({ nodeID: util.nodeID(arg[0], arg[1]), address: arg[0], port: parseInt(arg[1]) });
-    }, 3000);
+    if (arg[0])
+        // keep pinging the guy
+        setInterval(function() {
+            node.ping({ nodeID: util.nodeID(arg[0], arg[1]), address: arg[0], port: parseInt(arg[1]) });
+        }, 3000);
 }
