@@ -31,7 +31,7 @@ network.
 A KNode is created by passing it an object having `address` and `port`
 properties. The node will bind to `port` and start running.
 
-    var node = new dht.KNode({ address: '10.100.98.60', port: '12345' });
+    var node = new dht.KNode({ address: '10.100.98.60', port: 12345 });
 
 #### connect(address, port)
 
@@ -72,12 +72,13 @@ It is `function (err)`. If the store succeeded, `err` is `null`, otherwise
 
 #### self
 
-An object describing this node.
+An object describing this node. `self` is frozen, attempts to modify it will
+fail (and raise an exception in strict mode).
 
-    {
-        nodeID: 'SHA1 hash, unique ID of the node',
-        address: 'IP address the node is on',
-        port: port number (integer) the node is bound to
+    node.self is {
+        nodeID: 'f386f180b2722ab92060661152e680b88976126f',
+        address: '10.100.98.60',
+        port: 12345
     }
 
 Contributors
