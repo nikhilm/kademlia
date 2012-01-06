@@ -33,13 +33,20 @@ properties. The node will bind to `port` and start running.
 
     var node = new dht.KNode({ address: '10.100.98.60', port: 12345 });
 
-#### connect(address, port)
+#### connect(address, port[, callback])
 
 Used to introduce this Kademlia node to the overlay network. If you know the
 address and port of an existing Kademlia peer, you may `connect` to it so that
-this node can become part of the network.
+this node can become part of the network. If `callback` is passed it is called
+with the result of the join. `connect` _succeeds_ (`err` is `null`) if the
+ping to the specified peer succeeds. It does not wait until a full overlay is
+established.
 
-    node.connect('10.100.98.12', 42922);
+    node.connect('10.100.98.12', 42922, function(err) {
+        if (err)
+            process.exit();
+        startHeavyLifting();
+    });
 
 #### get(key, callback)
 
