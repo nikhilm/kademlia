@@ -46,50 +46,50 @@ vows.describe('Utilities').addBatch({
         'works': function(topic) {
             assert.equal(
                 topic(
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0587'),
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0588')
+                    '1fbfba8945192d408dcdcc52b924903a328f0587',
+                    '1fbfba8945192d408dcdcc52b924903a328f0588'
                 ),
             -1);
             assert.equal(
                 topic(
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0588'),
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0587')
+                    '1fbfba8945192d408dcdcc52b924903a328f0588',
+                    '1fbfba8945192d408dcdcc52b924903a328f0587'
                 ),
             1);
             assert.equal(
                 topic(
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0588'),
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0588')
+                    '1fbfba8945192d408dcdcc52b924903a328f0588',
+                    '1fbfba8945192d408dcdcc52b924903a328f0588'
                 ),
             0);
             assert.equal(
                 topic(
-                    h2b('1fbfba8945192d408dcdcc52ba24903a328f0586'),
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0586')
+                    '1fbfba8945192d408dcdcc52ba24903a328f0586',
+                    '1fbfba8945192d408dcdcc52b924903a328f0586'
                 ),
             1);
             assert.equal(
                 topic(
-                    h2b('1fbfba8945192d408d3dcc52ba24903a328f0586'),
-                    h2b('1fbfba8945192d408dcdcc52b924903a328f0586')
+                    '1fbfba8945192d408d3dcc52ba24903a328f0586',
+                    '1fbfba8945192d408dcdcc52b924903a328f0586'
                 ),
             -1);
         },
 
         'can be used to sort an array': function(topic) {
             var arr = [
-                h2b('ffbfba8945192d408d3dcc52ba24903a00000000'),
-                h2b('1fbfba8945192d408dcdcc52b924903a328f0286'),
-                h2b('1fbfba7945192d408d3dcc52ba24903a328f0586'),
-                h2b('8fbfca7945122d408d3dcc52ba24903a328f0586'),
+                'ffbfba8945192d408d3dcc52ba24903a00000000',
+                '1fbfba8945192d408dcdcc52b924903a328f0286',
+                '1fbfba7945192d408d3dcc52ba24903a328f0586',
+                '8fbfca7945122d408d3dcc52ba24903a328f0586',
             ];
 
             arr.sort(topic);
 
-            assert.deepEqual(arr[0], h2b('1fbfba7945192d408d3dcc52ba24903a328f0586'));
-            assert.deepEqual(arr[1], h2b('1fbfba8945192d408dcdcc52b924903a328f0286'));
-            assert.deepEqual(arr[2], h2b('8fbfca7945122d408d3dcc52ba24903a328f0586'));
-            assert.deepEqual(arr[3], h2b('ffbfba8945192d408d3dcc52ba24903a00000000'));
+            assert.deepEqual(arr[0], '1fbfba7945192d408d3dcc52ba24903a328f0586');
+            assert.deepEqual(arr[1], '1fbfba8945192d408dcdcc52b924903a328f0286');
+            assert.deepEqual(arr[2], '8fbfca7945122d408d3dcc52ba24903a328f0586');
+            assert.deepEqual(arr[3], 'ffbfba8945192d408d3dcc52ba24903a00000000');
         }
     },
 
