@@ -38,9 +38,10 @@ properties. The node will bind to `port` and start running.
 Used to introduce this Kademlia node to the overlay network. If you know the
 address and port of an existing Kademlia peer, you may `connect` to it so that
 this node can become part of the network. If `callback` is passed it is called
-with the result of the join. `connect` _succeeds_ (`err` is `null`) if the
-ping to the specified peer succeeds. It does not wait until a full overlay is
-established.
+with the result of the join. `connect` _succeeds_ (`err` is `null`) when the
+entire [Kademlia join
+sequence](http://xlattice.sourceforge.net/components/protocol/kademlia/specs.html#join)
+is finished.
 
     node.connect('10.100.98.12', 42922, function(err) {
         if (err)
