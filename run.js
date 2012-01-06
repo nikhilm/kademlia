@@ -10,6 +10,6 @@ if (process.argv.length >= 4) {
     if (arg[0])
         // keep pinging the guy
         setInterval(function() {
-            node.ping({ nodeID: util.nodeID(arg[0], arg[1]), address: arg[0], port: parseInt(arg[1]) });
+            node._ping(util.make_contact(arg[0], parseInt(arg[1])));
         }, 3000);
 }
