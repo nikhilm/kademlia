@@ -131,5 +131,38 @@ vows.describe('Utilities').addBatch({
                 assert.notEqual(topic(id1, id2), constants.B);
             }
         }
+    },
+
+    'The powerOfTwoBuffer function': {
+        topic: function() { return util.powerOfTwoBuffer; },
+        'stays within range': function(topic) {
+            assert.throws(function() { topic(constants.B + 1); });
+            assert.throws(function() { topic(-1); });
+            assert.ok(topic(5));
+        },
+
+        'works': function(topic) {
+            var mkBuf = function() {
+                var b = new Buffer(constants.K);
+                b.fill(0);
+                return b;
+            }
+
+            var equal = function(exp, byteIndex, value) {
+                var b = mkBuf();
+                b[byteIndex] = value;
+
+                var test = topic(exp);
+                assert.equal(b.length, test.length);
+                for (var i = 0; i < b.length; i++)
+                    assert.equal(b[i], test[i]);
+            }
+
+            equal(0, 19, 1);
+            equal(159, 0, 0x80);
+            equal(155, 0, 0x08);
+            equal(10, 18, 0x04);
+            equal(16, 17, 0x01);
+        }
     }
 }).export(module);
