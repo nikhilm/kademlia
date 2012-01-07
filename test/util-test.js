@@ -3,6 +3,7 @@ var vows = require('vows')
   , assert = require('assert');
 
 var Faker = require('Faker');
+var _ = require('underscore');
 
 var constants = require('../lib/constants');
 var util = require('../lib/util');
@@ -163,6 +164,31 @@ vows.describe('Utilities').addBatch({
             equal(155, 0, 0x08);
             equal(10, 18, 0x04);
             equal(16, 17, 0x01);
+        }
+    },
+
+    'The randomInBucketRangeBuffer function': {
+        topic: function() { return util.randomInBucketRangeBuffer; },
+
+        'works': function(topic) {
+            function checkZero(buffer, tillIndex) {
+                for (var i = 0; i < tillIndex; i++)
+                    assert.equal(buffer[i], 0);
+            }
+
+            function test(n) {
+                var zeroTill = constants.K - (parseInt(n/8) + 1);
+                var pow = Math.pow(2, n%8 + 1);
+                _(500).times(function() {
+                    var num = topic(n);
+                    checkZero(num, zeroTill);
+                    assert.ok(num[zeroTill] < pow);
+                });
+            }
+
+            _.range(0, constants.B).forEach(function(i) {
+                test(i);
+            });
         }
     }
 }).export(module);
