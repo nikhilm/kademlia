@@ -8,8 +8,5 @@ var node = new knode.KNode({ address: self[0], port: port });
 if (process.argv.length >= 4) {
     var arg = process.argv[3].split(':');
     if (arg[0])
-        // keep pinging the guy
-        setInterval(function() {
-            node._ping(util.make_contact(arg[0], parseInt(arg[1])));
-        }, 3000);
+        node.connect(arg[0], parseInt(arg[1]));
 }
