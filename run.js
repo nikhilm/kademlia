@@ -10,7 +10,22 @@ if (process.argv.length >= 4) {
     if (arg[0])
         setInterval(function() {
             node.connect(arg[0], parseInt(arg[1]), function() {
-                node.set('foo', 'bar');
+                node.get('foo', function(err, value) {
+                    if (err) {
+                        console.log("Not found");
+                        node.set('foo', 'bar', function(err) {
+                            node.get('foo', function(err, value) {
+                                if (err)
+                                    console.log("Still not inserted");
+                                else
+                                    console.log("======> Inserted", value);
+                            });
+                        });
+                    }
+                    else {
+                        console.log("=======> Already exists", value);
+                    }
+                });
             });
         }, 4000);
 }
