@@ -8,5 +8,7 @@ var node = new knode.KNode({ address: self[0], port: port });
 if (process.argv.length >= 4) {
     var arg = process.argv[3].split(':');
     if (arg[0])
-        node.connect(arg[0], parseInt(arg[1]));
+        setInterval(function() {
+            node.connect(arg[0], parseInt(arg[1]));
+        }, 4000);
 }
