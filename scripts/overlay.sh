@@ -2,7 +2,6 @@
 
 . scripts/common.sh
 
-ip='10.100.98.60'
 port=10000
 n=$1
 
