@@ -9,6 +9,8 @@ if (process.argv.length >= 4) {
     var arg = process.argv[3].split(':');
     if (arg[0])
         setInterval(function() {
-            node.connect(arg[0], parseInt(arg[1]));
+            node.connect(arg[0], parseInt(arg[1]), function() {
+                node.set('foo', 'bar');
+            });
         }, 4000);
 }
