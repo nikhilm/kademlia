@@ -89,6 +89,12 @@ fail (and raise an exception in strict mode).
         port: 12345
     }
 
+Hacking
+-------
+
+To use the test scripts, assign the IP address to bind to, to the environment
+variable `KADEMLIA_BIND_ADDRESS`.
+
 Contributors
 ------------
 
