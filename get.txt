@@ -1,0 +1,4 @@
+{"type":"GET","key":"foo",
+"nodeID":"75358e37c9d268526907adf2acfe3c25d548e392",
+"address": "10.100.98.60",
+"port": "10001"}
