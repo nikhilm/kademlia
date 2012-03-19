@@ -14,6 +14,22 @@ vows.describe('KNode').addBatch({
         topic: new knode.KNode({ address: '127.0.0.1', port: 65535 }),
         'KNode._self should be frozen': function(topic) {
             assert.throws(function() { topic._self.prop = "invalid"; }, TypeError);
+        },
+    },
+
+    'Storing a value on a disconnected node': {
+        topic: function() {
+            var node = new knode.KNode({ address: '127.0.0.1', port: 65535 });
+            var self = this;
+            node.set('foo', 'bar', function(err) {
+            console.error(err);
+                if (err)
+                    self.callback(null);
+                else
+                    self.callback({message: "this shouldn't happen!"});
+            });
+        },
+        'should fail': function(err) {
         }
     },
 
