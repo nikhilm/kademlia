@@ -5,8 +5,8 @@
 port=10000
 n=$1
 
-id=`node -e "console.log(require('./lib/util').nodeID('$KADEMLIA_BIND_ADDRESS', $port))"`
-xt "$id $KADEMLIA_BIND_ADDRESS:$port" $KADEMLIA_BIND_ADDRESS $port
+id=`kad_node_id $port`
+xt `kad_title $id $KADEMLIA_BIND_ADDRESS $port` $KADEMLIA_BIND_ADDRESS $port
 
 prev=$port
 for ((i=1; i<n;i++))
@@ -16,8 +16,8 @@ do
     then
         port=$((10001 + port%65535))
     fi
-    id=`node -e "console.log(require('./lib/util').nodeID('$KADEMLIA_BIND_ADDRESS', $port))"`
-    xt "$id $KADEMLIA_BIND_ADDRESS:$port" $KADEMLIA_BIND_ADDRESS $port $KADEMLIA_BIND_ADDRESS $prev
+    id=`kad_node_id $port`
+    xt "`kad_title $id $KADEMLIA_BIND_ADDRESS $port`" $KADEMLIA_BIND_ADDRESS $port $KADEMLIA_BIND_ADDRESS $prev
     prev=$port
     if [ $(( i % 10 )) -eq 0 ]
     then
