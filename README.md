@@ -11,10 +11,11 @@ Use:
     var dht = require('kademlia')
     var node = new dht.KNode({ address: 'IP address', port: portNumber });
     node.connect('existing peer ip', port);
-    node.set('key', data);
+    node.set('foo', 'bar');
 
-    node.get('key', function(err, data) {
+    node.get('foo', function(err, data) {
         console.log("Retrieved", data, "from DHT");
+        console.log(data == 'bar');
     });
 
 API
@@ -26,7 +27,7 @@ The KNode represents a Kademlia node and handles all communication and storage.
 This should be the only thing you need to interact with the Kademlia overlay
 network.
 
-#### constructor(configuration)
+#### KNode(configuration)
 
 A KNode is created by passing it an object having `address` and `port`
 properties. The node will bind to `port` and start running.
