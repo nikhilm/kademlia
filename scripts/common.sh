@@ -15,6 +15,7 @@ function xt() {
     #echo xterm -geometry 70x10 -T "$1" -e node run.js $2:$3 $4:$5 &
     #xterm -geometry 70x10 -hold -T "$1" -e node run.js $2:$3 $4:$5 &
     #echo node run.js $2:$3 $4:$5
+    #node run.js $2:$3 $4:$5 &
     tmux split-window "node run.js $2:$3 $4:$5"
     tmux select-layout tiled
 }
