@@ -17,34 +17,34 @@ if (process.argv.length >= 4) {
 }
 
 // 'interactive' console
-net.createServer(function(socket) {
-    socket.setEncoding('utf8');
-    socket.on('data', function(data) {
+var cmd = function(stream) {
+    stream.setEncoding('utf8');
+    stream.on('data', function(data) {
         var parts = data.trim().split(' ');
         switch (parts[0]) {
             case 'set':
                 if (parts.length < 3) {
-                    socket.write("Not enough parameters\n");
+                    stream.write("Not enough parameters\n");
                     break;
                 }
                 node.set(parts[1], parts[2], function(err) {
                     if (err)
-                        socket.write("Error setting " + parts[1] + ": " + JSON.stringify(err) + "\n");
+                        stream.write("Error setting " + parts[1] + ": " + JSON.stringify(err) + "\n");
                     else
-                        socket.write("Set " + parts[1] + " to " + parts[2] + "\n");
+                        stream.write("Set " + parts[1] + " to " + parts[2] + "\n");
                 });
                 break;
 
             case 'get':
                 if (parts.length < 2) {
-                    socket.write("Not enough parameters\n");
+                    stream.write("Not enough parameters\n");
                     break;
                 }
                 node.get(parts[1], function(err, val) {
                     if (err)
-                        socket.write("Error getting " + parts[1] + ": " + JSON.stringify(err) + "\n");
+                        stream.write("Error getting " + parts[1] + ": " + JSON.stringify(err) + "\n");
                     else
-                        socket.write("Value of " + parts[1] + " is " + val + "\n");
+                        stream.write("Value of " + parts[1] + " is " + val + "\n");
                 });
                 break;
 
@@ -53,7 +53,13 @@ net.createServer(function(socket) {
                 break;
 
             default:
-                socket.write("Unknown command\n");
+                stream.write("Unknown command\n");
         }
     });
+}
+
+process.stdin.resume()
+cmd(process.stdin)
+net.createServer(function(socket) {
+    cmd(socket)
 }).listen(port);
