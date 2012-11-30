@@ -11,8 +11,13 @@ if (process.argv.length >= 4) {
     var arg = process.argv[3].split(':');
     if (arg[0])
         node.connect(arg[0], parseInt(arg[1]), function(err) {
-            console.log(err);
-            process.exit(1);
+            if (err) {
+                console.log(err);
+                process.exit(1);
+            }
+            else {
+                console.log("Successfully connected to", process.argv[3]);
+            }
         });
 }
 
