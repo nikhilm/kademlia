@@ -2,7 +2,7 @@
 var vows = require('vows')
   , assert = require('assert');
 
-var _ = require('underscore');
+var _ = require('lodash');
 var Faker = require('Faker');
 
 var constants = require('../lib/constants');

@@ -3,7 +3,6 @@
     "version": "0.2.1",
     "description": "An implementation of the Kademlia DHT in node.js, with UDP streaming for large data",
     "keywords": ["dht", "kademlia", "p2p", "bittorrent"],
-    "author": ,
 	"contributors": [
 		{
 		    "name": "Nikhil Marathe",
