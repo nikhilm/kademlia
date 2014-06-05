@@ -4,6 +4,18 @@ var _ = require('lodash');
 var host = '127.0.0.1';
 
 
+var peers = [];
+
+function update() {	
+ 	process.stdout.write('\033c');
+	peers.forEach(function(p) {
+		p.debug();
+		console.log();
+	});
+	
+}
+
+
 
 
 function initPeer(portNumber, seeds, onConnect) {
@@ -14,11 +26,10 @@ function initPeer(portNumber, seeds, onConnect) {
 		streamPort: portNumber+100,
 		seeds: seeds
 	});
-	node.on('connect', function() {
-		node.set(node.self.nodeID, node.id);
-
-		node.set('a' + node.id,'b' );
+	node.once('contact:add', function() {
+		onConnect(node);
 	});
+	peers.push(node);
 
     
 	//console.log(node.self);
@@ -34,31 +45,23 @@ function initPeer(portNumber, seeds, onConnect) {
             onConnect(node);		
 		});
  	}*/
-    node.debug();
+    //node.debug();
 }
 
-initPeer(12004, []);
-
-console.log('-----------');
+initPeer(12004, [], function(node) {
+	setTimeout(function() {
+		node.debug();
+	}, 3000);
+});
 
 setTimeout(function() {
 	initPeer(12005, [12004], function(node) {
-		
-		node.set('foo', 'bar', function(err) {
-            if (err) {
-                console.error('set error', err);
-                return;
-            }
-                        
-            node.get('foo', function(err, data) {
-                if (err) { console.error('get error', err); return; }
-                console.log('get', data);
-                
-                //node.debug();
-		    });
-        });
-		
+		//node.set(node.self.nodeID, node.id);
+
+		node.set('a' + node.id,'b' );
+		node.debug();
 	});
 }, 1000);
 
 
+setInterval(update, 100);
