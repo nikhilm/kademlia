@@ -63,5 +63,12 @@ setTimeout(function() {
 	});
 }, 1000);
 
+setTimeout(function() {
+	initPeer(12006, [12005], function(node) {
+		setTimeout(function() {
+			node.debug();
+		}, 3000);
+	});
+}, 2000);
 
-setInterval(update, 100);
+setInterval(update, 200);
