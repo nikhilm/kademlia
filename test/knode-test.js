@@ -2,7 +2,7 @@
 var vows = require('vows')
   , assert = require('assert');
 
-var _ = require('underscore');
+var _ = require('lodash');
 var Faker = require('Faker');
 
 var constants = require('../lib/constants');
@@ -64,7 +64,7 @@ vows.describe('KNode').addBatch({
 
         'replies with success on proper store': function(err, obj) {
             assert.equal(obj.node._storage[util.id('old silver')], 'opens the cupboard underneath the stairs');
-            assert.isTrue(obj.message.status);
+            assert.isTrue(obj.message.s==1);
         }
     }
 }).export(module);

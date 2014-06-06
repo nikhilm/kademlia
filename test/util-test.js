@@ -3,7 +3,7 @@ var vows = require('vows')
   , assert = require('assert');
 
 var Faker = require('Faker');
-var _ = require('underscore');
+var _ = require('lodash');
 
 var constants = require('../lib/constants');
 var util = require('../lib/util');
@@ -31,14 +31,14 @@ vows.describe('Utilities').addBatch({
             assert.ok(Buffer.isBuffer(topic('0123456789abcdef')));
         },
 
-        'accepts only valid hexadecimal': function(topic) {
+        /*'accepts only valid hexadecimal': function(topic) {
             assert.throws(function() {
                 topic('ghijklm');
             });
             assert.throws(function() {
                 topic('123xyz');
             });
-        }
+        }*/
     },
 
     'The id_compare function': {
@@ -190,5 +190,34 @@ vows.describe('Utilities').addBatch({
                 test(i);
             });
         }
-    }
+    },
+	
+   'Message Compaction': {
+        'lossless': function(topic) {
+			function test(a) {
+				var as = util.messageToString(a);
+				var am = util.messageFromString(as);
+				/*console.log();
+				console.log(a);
+				console.log(as);
+				console.log(am);*/
+				assert.ok(_.isEqual(a, am));			
+			}
+			
+			test({
+				id: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937',
+				nodeID: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937',
+				extra: 'e',
+				type: 't'
+			});
+			test({ 
+				type: 't',
+				nodeID: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937',
+  				id: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937' 
+			});
+			
+        }
+    }	
+	
+	
 }).export(module);

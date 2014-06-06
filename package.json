@@ -1,25 +1,39 @@
 {
-    "name": "kademlia"
-,   "version": "0.2.0"
-,   "description": "An implementation of the Kademlia DHT in node.js"
-,   "keywords": ["dht", "kademlia", "p2p", "bittorrent"]
-,   "author": {
-        "name": "Nikhil Marathe"
-    ,   "email": "nsm.nikhil@gmail.com"
-    ,   "url": "http://nikhilism.com"
+    "name": "p2pdht",
+    "version": "0.2.1",
+    "description": "An implementation of the Kademlia DHT in node.js, with UDP streaming for large data",
+    "keywords": ["dht", "kademlia", "p2p", "bittorrent"],
+	"contributors": [
+		{
+		    "name": "Nikhil Marathe",
+		    "email": "nsm.nikhil@gmail.com",
+		    "url": "http://nikhilism.com"
+		},
+		{
+			 "name" : "SeH",
+			 "email" : "automenta@gmail.com",
+			 "url" : "http://automenta.com"
+		}
+	],
+    "files": ["lib"],
+    "main": "lib/knode",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/automenta/kademlia.git"
+    },
+    "dependencies": {
+        "lodash": "",
+        "hat": "",
+        "underscore.string": "",
+        "async": "",
+		"utp": "",
+		"eventemitter2":""
+    },
+    "devDependencies": {
+        "vows": ">0.5",
+        "Faker": ">=0.1.0"
+    },
+    "engines": {
+        "node": ">= 0.4.10"
     }
-,   "files": ["lib"]
-,   "main": "lib/knode"
-,   "repository": { "type": "git", "url": "http://github.com/nikhilm/kademlia.git" }
-,   "dependencies": {
-        "underscore": ">1.1.0"
-    ,   "hat": ">=0.0.3"
-    ,   "underscore.string": "latest"
-    ,   "async": ">=0.1.0"
-    }
-,   "devDependencies": {
-        "vows": ">0.5"
-    ,   "Faker": ">=0.1.0"
-    }
-,   "engines": { "node": ">= 0.4.10" }
 }
