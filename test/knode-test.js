@@ -64,7 +64,7 @@ vows.describe('KNode').addBatch({
 
         'replies with success on proper store': function(err, obj) {
             assert.equal(obj.node._storage[util.id('old silver')], 'opens the cupboard underneath the stairs');
-            assert.isTrue(obj.message.status);
+            assert.isTrue(obj.message.s==1);
         }
     }
 }).export(module);

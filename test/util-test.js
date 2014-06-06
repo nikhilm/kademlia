@@ -205,8 +205,8 @@ vows.describe('Utilities').addBatch({
 			}
 			
 			test({
-				id: 'i',
-				nodeID: 'n',
+				id: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937',
+				nodeID: '60c93d92a1bb9a0b71c8b063a51afd5547f0e937',
 				extra: 'e',
 				type: 't'
 			});
