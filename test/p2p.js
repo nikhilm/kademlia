@@ -2,18 +2,20 @@ var dht = require('../')
 var _ = require('lodash');
 
 var host = '127.0.0.1';
+//var host = '24.131.65.218';
 
 
 var peers = [];
+var debug = false;
 
 function update() {	
  	process.stdout.write('\033c');
 	peers.forEach(function(p) {
 		p.debug();
 		console.log();
-	});
-	
+	});	
 }
+setInterval(update, 200);
 
 
 
@@ -23,7 +25,7 @@ function initPeer(portNumber, seeds, onConnect) {
 		id: 'a' + portNumber,
 		address: host, 
 		port: portNumber, 
-	}, seeds);
+	}, seeds, debug);
 	node.once('contact:add', function() {
 		onConnect(node);
 	});
@@ -74,4 +76,3 @@ setTimeout(function() {
 	});
 }, 2000);
 
-setInterval(update, 200);

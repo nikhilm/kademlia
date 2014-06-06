@@ -3,7 +3,7 @@ var dht = require('../')
 var host = '127.0.0.1';
 
 function initPeer(portNumber, targetPort, onConnect) {
-	var node = new dht.KNode({ address: host, port: portNumber, streamPort: portNumber+100 });    
+	var node = new dht.KNode({ id:('a'+portNumber), address: host, port: portNumber, streamPort: portNumber+100 },[],true);
     node.know(['x']);
 
 	console.log(node.self);
@@ -15,17 +15,13 @@ function initPeer(portNumber, targetPort, onConnect) {
 				return;
 			}
             console.log("Successfully connected to", targetPort);
-            onConnect(node);		
 		});
 
 
  	}
-
-	node.on('contact:add', function(c) {
-		//console.log(node.self.nodeID, 'contact add', c.nodeID);
-	});
-	node.on('set', function(k, v, m) {
-		console.log(node.self.nodeID, 'set', k, JSON.stringify(v).length + ' bytes', m.address, m.port);
+	node.once('contact:add', function() {
+		if (onConnect)
+			onConnect(node);		
 	});
  
     //node.debug();
@@ -38,23 +34,13 @@ setTimeout(function() {
 	initPeer(12004, 12003, function(node) {
 		
 		node.set('x', 'a', function(err) {
-            if (err) {
-                console.error('set error', err);
-                return;
-            }
+            if (err) { console.error('set error', err); return; }
 
-			function print() {
-		        node.get('x', function(err, data) {
-		            if (err) { console.error('get error', err); return; }
-		            console.log('a', 'get', JSON.stringify(data).length, ' bytes');
-				});
-			}                        
+			node.get('x');			
+			node.once('set:x', function(v) {
+				console.log('a', 'get', JSON.stringify(v).length, ' bytes');
+			});
 
-			print();
-
-			setTimeout(function() {
-				print();
-			}, 1000);
         });
 		
 	});
@@ -74,17 +60,12 @@ setTimeout(function() {
 		console.log('large obj size: ', JSON.stringify(largeObject).length);
 
 		node.set('x', largeObject, function(err) {
-            if (err) {
-                console.error('set error', err);
-                return;
-            }
+            if (err) { console.error('set error', err); return; }
                         
-            node.get('x', function(err, data) {
-                if (err) { console.error('get error', err); return; }
-                console.log('b', 'get', JSON.stringify(data).length, ' bytes');
-                
-                //node.debug();
-		    });
+            node.get('x');
+			node.once('set:x', function(v, m) {
+				console.log('b', 'set', JSON.stringify(v).length, 'bytes');
+			});
         });
 		
 	});
