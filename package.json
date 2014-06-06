@@ -27,8 +27,7 @@
         "underscore.string": "",
         "async": "",
 		"utp": "",
-		"eventemitter2":"",
-		"compress-buffer":""
+		"eventemitter2":""
     },
     "devDependencies": {
         "vows": ">0.5",
