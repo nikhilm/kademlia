@@ -23,9 +23,7 @@ function initPeer(portNumber, seeds, onConnect) {
 		id: 'a' + portNumber,
 		address: host, 
 		port: portNumber, 
-		streamPort: portNumber+100,
-		seeds: seeds
-	});
+	}, seeds);
 	node.once('contact:add', function() {
 		onConnect(node);
 	});
@@ -58,7 +56,7 @@ setTimeout(function() {
 	initPeer(12005, [12004], function(node) {
 		//node.set(node.self.nodeID, node.id);
 
-		node.set('a' + node.id,'b' );
+		node.set('a' + node.id, { x: 'y' } );
 		node.debug();
 	});
 }, 1000);
@@ -66,9 +64,12 @@ setTimeout(function() {
 setTimeout(function() {
 	initPeer(12006, [12005], function(node) {
 		setTimeout(function() {
-			node.debug();
+			node.get('aa12005', function(err, v) {
+				console.log(node.id + ' got ' + JSON.stringify(v));
+				node.debug();
+			}, true);
 		}, 3000);
 	});
 }, 2000);
 
-setInterval(update, 200);
+//setInterval(update, 200);
