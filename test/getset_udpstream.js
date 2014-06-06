@@ -4,7 +4,7 @@ var host = '127.0.0.1';
 
 function initPeer(portNumber, targetPort, onConnect) {
 	var node = new dht.KNode({ address: host, port: portNumber, streamPort: portNumber+100 });    
-    node.addKeys(['x']);
+    node.know(['x']);
 
 	console.log(node.self);
 	if (targetPort) {

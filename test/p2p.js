@@ -47,29 +47,31 @@ function initPeer(portNumber, seeds, onConnect) {
 }
 
 initPeer(12004, [], function(node) {
-	setTimeout(function() {
-		node.debug();
-	}, 3000);
 });
 
 setTimeout(function() {
 	initPeer(12005, [12004], function(node) {
-		//node.set(node.self.nodeID, node.id);
 
-		node.set('a' + node.id, { x: 'y' } );
-		node.debug();
+		var b = false;
+		setInterval(function() {
+			node.set(node.id, { x: b } );
+			b = !b;
+		}, 325);
+					
+		//node.debug();
 	});
 }, 1000);
 
 setTimeout(function() {
 	initPeer(12006, [12005], function(node) {
-		setTimeout(function() {
-			node.get('aa12005', function(err, v) {
-				console.log(node.id + ' got ' + JSON.stringify(v));
-				node.debug();
-			}, true);
-		}, 3000);
+		
+		var b = false;
+		setInterval(function() {
+			node.set(node.id, { y: b } );
+			b = !b;
+		}, 250);
+		
 	});
 }, 2000);
 
-//setInterval(update, 200);
+setInterval(update, 200);
